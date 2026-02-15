@@ -1,0 +1,76 @@
+<script>
+
+// Love Timer
+function updateLoveTimer() {
+  const startDate = new Date("June 9, 2025");
+  const today = new Date();
+
+  const diffTime = today - startDate;
+  const days = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+  const months = Math.floor(days / 30);
+  const remainingDays = days % 30;
+
+  document.getElementById("loveTimer").innerHTML =
+  "Together since 9 June 2025 — " + months + " months " + remainingDays + " days 💘";
+}
+
+setInterval(updateLoveTimer, 1000);
+updateLoveTimer();
+
+// Start
+function start() {
+  document.getElementById("loveSection").classList.remove("hidden");
+  startHearts();
+
+  document.getElementById("musicPlayer").src =
+  "https://www.youtube.com/embed/CBftmGirV50?autoplay=1&loop=1&playlist=CBftmGirV50";
+}
+
+// Selection toggle
+function selectItem(element) {
+  element.classList.toggle("selected");
+}
+
+// FINAL — capture selections
+function final() {
+
+  document.getElementById("finalMsg").classList.remove("hidden");
+  document.getElementById("popup").style.display = "block";
+
+  let selectedItems = [];
+  let cards = document.querySelectorAll(".card.selected");
+
+  cards.forEach(card => {
+    selectedItems.push(card.innerText);
+  });
+
+  let message = "I said yes ❤️ and I chose: " + selectedItems.join(", ");
+
+  // store message for WhatsApp button
+  window.selectedMessage = encodeURIComponent(message);
+}
+
+// Hearts
+function startHearts() {
+  setInterval(() => {
+    let heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+  }, 500);
+}
+
+// Call
+function callNow() {
+  window.location.href = "tel:+919625049026";
+}
+
+// WhatsApp with selections
+function whatsappNow() {
+  let msg = window.selectedMessage || "I said yes ❤️";
+  window.location.href = "https://wa.me/919625049026?text=" + msg;
+}
+
+</script>
